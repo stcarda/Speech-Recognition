@@ -1,0 +1,2 @@
+export BROWN_PATH="C:\Users\Sean Carda\Desktop\Projects\Speech-Recognition\data\corpora\brown\brown.txt;"
+export SHAKESPEARE_PATH="C:\Users\Sean Carda\Desktop\Projects\Speech-Recognition\data\corpora\shakespeare\input.txt"
