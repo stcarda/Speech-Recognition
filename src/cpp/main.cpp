@@ -1,24 +1,23 @@
 #include "corpus/include/corpus.hpp"
 #include "tokenizers/include/tokenizer.hpp"
+#include <fftw3.h>
 
 using namespace std;
 
 int main(int argc, char* argv[], char* envp[]) {    
-    TextCorpusReader speare = TextCorpusReader("shakespeare");
+    fftw_complex *in, *out;
+    fftw_plan p;
 
-    speare.GenerateWords();
+    int size_in = 512;
+    int N = 1024;
 
-    printf("Length of words: %zd\n", speare.words.size());
+    in = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * size_in);
+    out = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * N);
+    p = fftw_plan_dft_1d(N, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
 
-    unordered_map<string, int> words({
-        {"low_", 5},
-        {"lowest_", 2},
-        {"newer_", 6},
-        {"wider_", 3},
-        {"new_", 2}
-    });
+    fftw_execute(p);
 
-    BytePairTokenizer tokenizer;
-    tokenizer.Train(speare.words, 20000);
-    //tokenizer.Train(words, 20000);
+    fftw_destroy_plan(p);
+    fftw_free(in); fftw_free(out);
+
 }

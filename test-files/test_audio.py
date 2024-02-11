@@ -1,5 +1,4 @@
 import pyaudio
-import _portaudio
 import wave
 
 # Setup channel info
